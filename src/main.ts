@@ -1,4 +1,3 @@
-import * as CreepManager from "./components/creeps/creepManager";
 import * as Config from "./config/config";
 
 import * as Profiler from "screeps-profiler";
@@ -24,28 +23,7 @@ if (__REVISION__) {
 }
 
 function mloop() {
-  // Check memory for null or out of bounds custom objects
-  if (!Memory.uuid || Memory.uuid > 100) {
-    Memory.uuid = 0;
-  }
 
-  for (const i in Game.rooms) {
-    const room: Room = Game.rooms[i];
-
-    CreepManager.run(room);
-
-    // Clears any non-existing creep memory.
-    for (const name in Memory.creeps) {
-      const creep: any = Memory.creeps[name];
-
-      if (creep.room === room.name) {
-        if (!Game.creeps[name]) {
-          log.info("Clearing non-existing creep memory:", name);
-          delete Memory.creeps[name];
-        }
-      }
-    }
-  }
 }
 
 /**
